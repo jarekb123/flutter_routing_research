@@ -19,6 +19,7 @@ class ListPageWithDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MasterDetailRouter(
+        debugName: 'ListPageRouter',
         masterBuilder: (context) => const ItemsList(),
       ),
     );
@@ -35,9 +36,7 @@ class ItemsList extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text('Item $index'),
-          onTap: () => AutoRouter.of(context).navigate(
-            DetailsPageRoute(index: index),
-          ),
+          onTap: () => AutoRouter.of(context).navigateNamed('/list/$index'),
         );
       },
     );

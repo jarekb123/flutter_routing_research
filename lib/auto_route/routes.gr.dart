@@ -10,79 +10,75 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i1;
+import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 import 'package:router_experiments/auto_route/auth/login_page.dart' as _i2;
-import 'package:router_experiments/auto_route/details_page.dart' as _i4;
-import 'package:router_experiments/auto_route/list_page.dart' as _i3;
+import 'package:router_experiments/auto_route/details_page.dart' as _i3;
+import 'package:router_experiments/auto_route/list_page.dart' as _i1;
 
-class AppRouter extends _i1.RootStackRouter {
+class AppRouter extends _i4.RootStackRouter {
   AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i1.PageFactory> pagesMap = {
-    EmptyRouterPageRoute.name: (routeData) {
-      return _i1.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i1.EmptyRouterPage());
+  final Map<String, _i4.PageFactory> pagesMap = {
+    ListPageWithDetailsRoute.name: (routeData) {
+      return _i4.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i1.ListPageWithDetails());
     },
     LoginPageRoute.name: (routeData) {
       final args = routeData.argsAs<LoginPageRouteArgs>();
-      return _i1.AdaptivePage<dynamic>(
+      return _i4.AdaptivePage<dynamic>(
           routeData: routeData,
           child: _i2.LoginPage(key: args.key, onSuccess: args.onSuccess));
-    },
-    ListPageRoute.name: (routeData) {
-      return _i1.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i3.ListPage());
     },
     DetailsPageRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<DetailsPageRouteArgs>(
           orElse: () =>
               DetailsPageRouteArgs(index: pathParams.getInt('index')));
-      return _i1.AdaptivePage<dynamic>(
+      return _i4.AdaptivePage<dynamic>(
           routeData: routeData,
-          child: _i4.DetailsPage(key: args.key, index: args.index));
+          child: _i3.DetailsPage(key: args.key, index: args.index));
     },
     CommentsPageRoute.name: (routeData) {
-      return _i1.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i4.CommentsPage());
+      return _i4.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i3.CommentsPage());
     }
   };
 
   @override
-  List<_i1.RouteConfig> get routes => [
-        _i1.RouteConfig('/#redirect',
+  List<_i4.RouteConfig> get routes => [
+        _i4.RouteConfig('/#redirect',
             path: '/', redirectTo: '/list', fullMatch: true),
-        _i1.RouteConfig(EmptyRouterPageRoute.name, path: '/list', children: [
-          _i1.RouteConfig(ListPageRoute.name,
-              path: '', parent: EmptyRouterPageRoute.name),
-          _i1.RouteConfig(DetailsPageRoute.name,
-              path: ':index',
-              parent: EmptyRouterPageRoute.name,
-              children: [
-                _i1.RouteConfig(CommentsPageRoute.name,
-                    path: 'comments', parent: DetailsPageRoute.name)
-              ])
-        ]),
-        _i1.RouteConfig(LoginPageRoute.name, path: '/login')
+        _i4.RouteConfig(ListPageWithDetailsRoute.name,
+            path: '/list',
+            children: [
+              _i4.RouteConfig(DetailsPageRoute.name,
+                  path: ':index',
+                  parent: ListPageWithDetailsRoute.name,
+                  children: [
+                    _i4.RouteConfig(CommentsPageRoute.name,
+                        path: 'comments', parent: DetailsPageRoute.name)
+                  ])
+            ]),
+        _i4.RouteConfig(LoginPageRoute.name, path: '/login')
       ];
 }
 
 /// generated route for
-/// [_i1.EmptyRouterPage]
-class EmptyRouterPageRoute extends _i1.PageRouteInfo<void> {
-  const EmptyRouterPageRoute({List<_i1.PageRouteInfo>? children})
-      : super(EmptyRouterPageRoute.name,
+/// [_i1.ListPageWithDetails]
+class ListPageWithDetailsRoute extends _i4.PageRouteInfo<void> {
+  const ListPageWithDetailsRoute({List<_i4.PageRouteInfo>? children})
+      : super(ListPageWithDetailsRoute.name,
             path: '/list', initialChildren: children);
 
-  static const String name = 'EmptyRouterPageRoute';
+  static const String name = 'ListPageWithDetailsRoute';
 }
 
 /// generated route for
 /// [_i2.LoginPage]
-class LoginPageRoute extends _i1.PageRouteInfo<LoginPageRouteArgs> {
+class LoginPageRoute extends _i4.PageRouteInfo<LoginPageRouteArgs> {
   LoginPageRoute({_i5.Key? key, required void Function() onSuccess})
       : super(LoginPageRoute.name,
             path: '/login',
@@ -105,18 +101,10 @@ class LoginPageRouteArgs {
 }
 
 /// generated route for
-/// [_i3.ListPage]
-class ListPageRoute extends _i1.PageRouteInfo<void> {
-  const ListPageRoute() : super(ListPageRoute.name, path: '');
-
-  static const String name = 'ListPageRoute';
-}
-
-/// generated route for
-/// [_i4.DetailsPage]
-class DetailsPageRoute extends _i1.PageRouteInfo<DetailsPageRouteArgs> {
+/// [_i3.DetailsPage]
+class DetailsPageRoute extends _i4.PageRouteInfo<DetailsPageRouteArgs> {
   DetailsPageRoute(
-      {_i5.Key? key, required int index, List<_i1.PageRouteInfo>? children})
+      {_i5.Key? key, required int index, List<_i4.PageRouteInfo>? children})
       : super(DetailsPageRoute.name,
             path: ':index',
             args: DetailsPageRouteArgs(key: key, index: index),
@@ -140,8 +128,8 @@ class DetailsPageRouteArgs {
 }
 
 /// generated route for
-/// [_i4.CommentsPage]
-class CommentsPageRoute extends _i1.PageRouteInfo<void> {
+/// [_i3.CommentsPage]
+class CommentsPageRoute extends _i4.PageRouteInfo<void> {
   const CommentsPageRoute() : super(CommentsPageRoute.name, path: 'comments');
 
   static const String name = 'CommentsPageRoute';

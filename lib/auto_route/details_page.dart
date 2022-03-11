@@ -29,7 +29,10 @@ class _DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Provider.value(
       value: widget.index,
-      child: _DetailsPage(widget: widget, random: _random),
+      child: MasterDetailRouter(
+        debugName: 'DetailsPageRouter',
+        masterBuilder: (_) => _DetailsPage(widget: widget, random: _random),
+      ),
     );
   }
 }

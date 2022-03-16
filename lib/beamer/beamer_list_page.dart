@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:router_experiments/auto_route/details_page.dart';
 import 'package:router_experiments/beamer/beamer_master_detail.dart';
+import 'package:router_experiments/beamer/details_page.dart';
 
 class BeamerListPage extends StatelessWidget {
   const BeamerListPage({Key? key}) : super(key: key);

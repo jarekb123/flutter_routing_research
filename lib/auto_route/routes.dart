@@ -19,7 +19,7 @@ import 'package:router_experiments/auto_route/routes.gr.dart';
           page: DetailsPage,
           // guards: [AuthGuard],
           children: [
-            AutoRoute(page: CommentsPage, path: 'comments'),
+            AutoRoute(page: CommentsPage, path: 'comments', initial: true),
           ],
         ),
       ],

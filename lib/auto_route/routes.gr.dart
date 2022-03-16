@@ -58,6 +58,11 @@ class AppRouter extends _i4.RootStackRouter {
                   path: ':index',
                   parent: ListPageWithDetailsRoute.name,
                   children: [
+                    _i4.RouteConfig('#redirect',
+                        path: '',
+                        parent: DetailsPageRoute.name,
+                        redirectTo: 'comments',
+                        fullMatch: true),
                     _i4.RouteConfig(CommentsPageRoute.name,
                         path: 'comments', parent: DetailsPageRoute.name)
                   ])

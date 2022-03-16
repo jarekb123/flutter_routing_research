@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:router_experiments/beamer/beamer_list_page.dart';
+import 'package:router_experiments/url_widget/url_widget.dart';
 
 class BeamerRouterApp extends StatelessWidget {
   BeamerRouterApp({Key? key}) : super(key: key);
@@ -21,6 +22,17 @@ class BeamerRouterApp extends StatelessWidget {
     return MaterialApp.router(
       routeInformationParser: BeamerParser(),
       routerDelegate: _delegate,
+      builder: (context, child) {
+        return Column(
+          children: [
+            UrlWidget(
+              routerDelegate: _delegate,
+              routeInformationParser: BeamerParser(),
+            ),
+            Expanded(child: child ?? const SizedBox()),
+          ],
+        );
+      },
     );
   }
 }

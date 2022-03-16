@@ -37,6 +37,7 @@ class _BeamerMasterDetailState extends State<BeamerMasterDetail> {
         );
       }
     },
+    transitionDelegate: const NoAnimationTransitionDelegate(),
   );
 
   bool get _hasPages => _delegate.currentPages.isNotEmpty;

@@ -15,10 +15,15 @@ import 'package:flutter/material.dart' as _i5;
 import 'package:router_experiments/auto_route/auth/login_page.dart' as _i2;
 import 'package:router_experiments/auto_route/details_page.dart' as _i3;
 import 'package:router_experiments/auto_route/list_page.dart' as _i1;
+import 'package:router_experiments/auto_route/routes.dart' as _i6;
 
 class AppRouter extends _i4.RootStackRouter {
-  AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
+  AppRouter(
+      {_i5.GlobalKey<_i5.NavigatorState>? navigatorKey,
+      required this.authGuard})
       : super(navigatorKey);
+
+  final _i6.AuthGuard authGuard;
 
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
@@ -51,22 +56,17 @@ class AppRouter extends _i4.RootStackRouter {
   List<_i4.RouteConfig> get routes => [
         _i4.RouteConfig('/#redirect',
             path: '/', redirectTo: '/list', fullMatch: true),
-        _i4.RouteConfig(ListPageWithDetailsRoute.name,
-            path: '/list',
-            children: [
-              _i4.RouteConfig(DetailsPageRoute.name,
-                  path: ':index',
-                  parent: ListPageWithDetailsRoute.name,
-                  children: [
-                    _i4.RouteConfig('#redirect',
-                        path: '',
-                        parent: DetailsPageRoute.name,
-                        redirectTo: 'comments',
-                        fullMatch: true),
-                    _i4.RouteConfig(CommentsPageRoute.name,
-                        path: 'comments', parent: DetailsPageRoute.name)
-                  ])
-            ]),
+        _i4.RouteConfig(ListPageWithDetailsRoute.name, path: '/list', guards: [
+          authGuard
+        ], children: [
+          _i4.RouteConfig(DetailsPageRoute.name,
+              path: ':index',
+              parent: ListPageWithDetailsRoute.name,
+              children: [
+                _i4.RouteConfig(CommentsPageRoute.name,
+                    path: 'comments', parent: DetailsPageRoute.name)
+              ])
+        ]),
         _i4.RouteConfig(LoginPageRoute.name, path: '/login')
       ];
 }

@@ -13,13 +13,13 @@ import 'package:router_experiments/auto_route/routes.gr.dart';
       initial: true,
       page: ListPageWithDetails,
       path: '/list',
+      guards: [AuthGuard],
       children: [
         AutoRoute(
           path: ':index',
           page: DetailsPage,
-          // guards: [AuthGuard],
           children: [
-            AutoRoute(page: CommentsPage, path: 'comments', initial: true),
+            AutoRoute(page: CommentsPage, path: 'comments'),
           ],
         ),
       ],

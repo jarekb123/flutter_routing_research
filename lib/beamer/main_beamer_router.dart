@@ -12,7 +12,9 @@ class BeamerRouterApp extends StatelessWidget {
     transitionDelegate: const NoAnimationTransitionDelegate(),
     locationBuilder: RoutesLocationBuilder(
       routes: {
-        '*': (_, __, ___) => const BeamerListPage(),
+        '*': (_, state, ___) {
+          return BeamerListPage();
+        },
       },
     ),
   );
@@ -20,19 +22,12 @@ class BeamerRouterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routeInformationParser: BeamerParser(),
+      routeInformationParser: BeamerParser(onParse: (info) {
+        print(info.location);
+        return info;
+      }),
       routerDelegate: _delegate,
-      builder: (context, child) {
-        return Column(
-          children: [
-            UrlWidget(
-              routerDelegate: _delegate,
-              routeInformationParser: BeamerParser(),
-            ),
-            Expanded(child: child ?? const SizedBox()),
-          ],
-        );
-      },
+      backButtonDispatcher: BeamerBackButtonDispatcher(delegate: _delegate),
     );
   }
 }

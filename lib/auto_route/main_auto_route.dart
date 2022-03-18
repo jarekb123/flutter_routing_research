@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:router_experiments/auto_route/auth/auth_service.dart';
+import 'package:router_experiments/auto_route/routes.dart';
 import 'package:router_experiments/auto_route/routes.gr.dart';
 import 'package:router_experiments/url_widget/url_widget.dart';
 
@@ -23,8 +24,8 @@ class _AutoRouteAppState extends State<AutoRouteApp> {
     super.initState();
     authService = AuthService();
     appRouter = AppRouter(
-        // authGuard: AuthGuard(authService),
-        );
+      authGuard: AuthGuard(authService),
+    );
 
     delegate = appRouter.delegate();
     parser = appRouter.defaultRouteParser();

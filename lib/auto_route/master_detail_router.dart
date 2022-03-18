@@ -20,6 +20,9 @@ class _MasterDetailRouterState extends State<MasterDetailRouter> {
   late GlobalKey<AutoRouterState> _routerKey = GlobalKey();
 
   bool get _hasPage {
+    var hasPendingSubNavigation =
+        AutoRouter.of(context).current.hasPendingChildren;
+
     return _routerKey.currentState?.controller?.hasEntries ?? false;
   }
 

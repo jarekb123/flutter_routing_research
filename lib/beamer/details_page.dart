@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:router_experiments/auto_route/master_detail_router.dart';
 import 'package:router_experiments/auto_route/routes.gr.dart';
@@ -48,6 +49,13 @@ class _DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            Beamer.of(context).beamBack();
+          },
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -56,9 +64,7 @@ class _DetailsPage extends StatelessWidget {
             Text('Details of ${widget.index}'),
             Text('Random number: $_random'),
             ElevatedButton(
-              onPressed: () {
-                AutoRouter.of(context).push(const CommentsPageRoute());
-              },
+              onPressed: () {},
               child: const Text('Show Comments'),
             ),
           ],

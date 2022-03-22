@@ -12,31 +12,59 @@ class GoRouterApp extends StatelessWidget {
         path: '/',
         builder: (context, state) => const HomePage(),
       ),
-      ...NestedGoRoute(
+      GoRoute(
         path: '/list',
-        builder: (context, state, [nested]) => ListPage(nested: nested),
-        nestedRoutes: [
-          NestedGoRoute(
-            path: '/:id',
-            builder: (context, state, [nested]) => DetailsPage(
+        pageBuilder: (context, state) => MaterialPage(
+          child: const ListPage(),
+          key: ValueKey('List'),
+        ),
+      ),
+      GoRoute(
+        path: '/list/:id',
+        pageBuilder: (context, state) => MaterialPage(
+          child: ListPage(
+            nested: DetailsPage(id: state.params['id']!),
+          ),
+          key: const ValueKey('List'),
+        ),
+      ),
+      GoRoute(
+        path: '/list/:id/comments',
+        pageBuilder: (context, state) => MaterialPage(
+          child: ListPage(
+            nested: DetailsPage(
               id: state.params['id']!,
-              nested: nested,
+              nested: const CommentsPage(),
             ),
-            nestedRoutes: [
-              NestedGoRoute(
-                path: '/comments',
-                builder: (context, state, [nested]) => const CommentsPage(),
-              )
-            ],
-            subroutes: [
-              GoRoute(
-                path: 'settings',
-                builder: (context, state) => SettingsPage(),
-              )
-            ],
-          )
-        ],
-      ).goRoutes,
+          ),
+          key: const ValueKey('List'),
+        ),
+      ),
+      // ...NestedGoRoute(
+      //   path: '/list',
+      //   builder: (context, state, [nested]) => ListPage(nested: nested),
+      //   nestedRoutes: [
+      //     NestedGoRoute(
+      //       path: '/:id',
+      //       builder: (context, state, [nested]) => DetailsPage(
+      //         id: state.params['id']!,
+      //         nested: nested,
+      //       ),
+      //       nestedRoutes: [
+      //         NestedGoRoute(
+      //           path: '/comments',
+      //           builder: (context, state, [nested]) => const CommentsPage(),
+      //         )
+      //       ],
+      //       subroutes: [
+      //         GoRoute(
+      //           path: 'settings',
+      //           builder: (context, state) => SettingsPage(),
+      //         )
+      //       ],
+      //     )
+      //   ],
+      // ).goRoutes,
     ],
     debugLogDiagnostics: true,
   );
@@ -68,6 +96,7 @@ class ListPage extends StatelessWidget {
     Key? key,
     this.nested,
   }) : super(key: key);
+
   final Widget? nested;
 
   @override
